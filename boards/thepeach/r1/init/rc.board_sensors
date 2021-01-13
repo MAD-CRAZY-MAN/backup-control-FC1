@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# THE PEACH R1 specific board sensors init
+#------------------------------------------------------------------------------
+
+adc start
+
+# Internal SPI bus ICM-20602
+icm20602 -s -R 0 start
+
+# Internal SPI bus mpu9250
+mpu9250 -s -M -R 0 start
+
+# Internal SPI
+ms5611 -s start
