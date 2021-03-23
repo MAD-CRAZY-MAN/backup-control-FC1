@@ -1,6 +1,14 @@
 # THE PEACH
 [![thepeach logo](http://gabom1.pagei.gethompy.com/data/editor/2005/ae065791211b1de95f89a5c5c9f796b7_1589185049_9675.png)](http://thepeach.kr)
 
+## Development Environment for Ubuntu
+ * To install Nuttx/Pixhawk toolchain
+```bash
+$ git clone https://github.com/ThePeach-Drone/PX4-Autopilot.git --recursive
+
+$ bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
+```
+
 ## THE PEACH K1 Board
 ![THEPEACH K1](./boards/thepeach/k1/THEPEACH_K1.png)
  * How to build THE PEACH K1's firmware
