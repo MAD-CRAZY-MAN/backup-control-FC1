@@ -4,9 +4,9 @@
 
 
 
-## Development Environment for Ubuntu
+## 우분투에서 빌드환경 설정
 
-* clone PX4-Autopilot repository
+* PX4-Autopilot 리포지토리 clone
 
 ```bash
 $ mkdir ~/thepeach_drone
@@ -16,7 +16,7 @@ $ git clone https://github.com/ThePeach-Drone/PX4-Autopilot.git --recursive
 
 
 
- * To install Nuttx/Pixhawk toolchain
+ * Nuttx/Pixhawk toolchain 설치
 
 ```bash
 $ bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
@@ -27,24 +27,23 @@ $ bash ./PX4-Autopilot/Tools/setup/ubuntu.sh
 ## THE PEACH K1 Board
 
 ![THEPEACH K1](./boards/thepeach/k1/THEPEACH_K1.png)
- * How to build THE PEACH K1's firmware
+ * THE PEACH K1's firmware를 빌드하는 방법
 ```bash
 $ cd ~/thepeach_drone/PX4-Autopilot
 
 $ make thepeach_k1_default
 ```
--- Build thepeach_k1_default.px4 files have been written to: /home/thepeach-drone/PX4-Autopilot/build/thepeach_k1_default/
+-- 빌드한 thepeach_k1_default.px4 파일은 ~/thepeach_drone/PX4-Autopilot/build/thepeach_k1_default  폴더에 생성되어진다.
 
 
 
 ## THE PEACH R1 Board
 
 ![THEPEACH R1](./boards/thepeach/r1/THEPEACH_R1.png)
- * How to build THE PEACH R1's firmware
+ * THE PEACH R1's firmware를 빌드하는 방법
 ```bash
 $ cd ~/thepeach_drone/PX4-Autopilot
 
 $ make thepeach_r1_default
 ```
--- Build thepeach_r1_default.px4 files have been written to: /home/thepeach-drone/PX4-Autopilot/build/thepeach_r1_default/
-
+-- 빌드한 thepeach_r1_default.px4 파일은 ~/thepeach_drone/PX4-Autopilot/build/thepeach_r1_default  폴더에 생성되어진다.
