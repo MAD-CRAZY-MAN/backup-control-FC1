@@ -11,7 +11,7 @@
 ```bash
 $ mkdir ~/thepeach_drone
 $ cd ~/thepeach_drone
-$ git clone https://github.com/ThePeach-Drone/PX4-Autopilot.git --recursive
+$ git clone https://github.com/the-peach-drone/PX4-Autopilot.git --recursive
 ```
 
 
