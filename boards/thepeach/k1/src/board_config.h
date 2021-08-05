@@ -86,6 +86,10 @@
 #define ADC_5V_RAIL_SENSE            4
 #define ADC_AIRSPEED_VOLTAGE_CHANNEL 15
 
+/* Define Battery 1 Voltage Divider and A per V */
+#define BOARD_BATTERY1_V_DIV    (18.1f)
+#define BOARD_BATTERY1_A_PER_V  (36.367515152f)
+
 /* Power supply control and monitoring GPIOs */
 // Signal is not connected
 #define GPIO_VDD_5V_PERIPH_EN	(GPIO_OUTPUT|GPIO_PUSHPULL|GPIO_SPEED_2MHz|GPIO_OUTPUT_CLEAR|GPIO_PORTA|GPIO_PIN8)
