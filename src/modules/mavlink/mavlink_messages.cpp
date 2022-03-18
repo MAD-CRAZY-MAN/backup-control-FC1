@@ -364,6 +364,67 @@ protected:
 	}
 };
 
+class MavlinkStreamVehicleStatus : public MavlinkStream
+{
+public:
+    const char *get_name() const override
+    {
+        return MavlinkStreamVehicleStatus::get_name_static();
+    }
+    static constexpr const char *get_name_static()
+    {
+        return "VEHICLE_STATUS";
+    }
+    static constexpr uint16_t get_id_static()
+    {
+        return MAVLINK_MSG_ID_VEHICLE_STATUS;
+    }
+    uint16_t get_id() override
+    {
+        return get_id_static();
+    }
+    static MavlinkStream *new_instance(Mavlink *mavlink)
+    {
+        return new MavlinkStreamVehicleStatus(mavlink);
+    }
+    unsigned get_size() override
+    {
+        return MAVLINK_MSG_ID_VEHICLE_STATUS_LEN + MAVLINK_NUM_NON_PAYLOAD_BYTES;
+    }
+
+private:
+    uORB::Subscription _vehicle_status_flags_sub{ORB_ID(vehicle_status_flags)};
+
+    /* do not allow top copying this class */
+    MavlinkStreamVehicleStatus(MavlinkStreamVehicleStatus &);
+    MavlinkStreamVehicleStatus& operator = (const MavlinkStreamVehicleStatus &);
+
+protected:
+    explicit MavlinkStreamVehicleStatus(Mavlink *mavlink) : MavlinkStream(mavlink)
+    {}
+
+    bool send(const hrt_abstime t) override
+    {
+        struct vehicle_status_flags_s _vehicle_status_flags;
+
+        if (_vehicle_status_flags_sub.update(&_vehicle_status_flags)) {
+            mavlink_vehicle_status_t _msg_vehicle_status;
+
+            //_msg_vehicle_status.timestamp = _vehicle_status_flags.timestamp;
+            _msg_vehicle_status.condition |= _vehicle_status_flags.condition_local_position_valid << MAV_VEHICLE_CONDITION_GLOBAL_POSITION;
+	    _msg_vehicle_status.condition |= _vehicle_status_flags.condition_local_position_valid << MAV_VEHICLE_CONDITION_LOCAL_POSITION;
+	    _msg_vehicle_status.condition |= _vehicle_status_flags.condition_local_velocity_valid << MAV_VEHICLE_CONDITION_LOCAL_VELOCITY;
+	    _msg_vehicle_status.condition |= _vehicle_status_flags.condition_local_altitude_valid << MAV_VEHICLE_CONDITION_LOCAL_ALTITUDE;
+
+            mavlink_msg_vehicle_status_send_struct(_mavlink->get_channel(), &_msg_vehicle_status);
+
+            return true;
+        }
+
+        return false;
+    }
+};
+
 class MavlinkStreamStatustext : public MavlinkStream
 {
 public:
@@ -5254,6 +5315,7 @@ static const StreamListItem streams_list[] = {
 	create_stream_list_item<MavlinkStreamScaledIMU2>(),
 	create_stream_list_item<MavlinkStreamScaledIMU3>(),
 	create_stream_list_item<MavlinkStreamScaledPressure<0> >(),
+	create_stream_list_item<MavlinkStreamVehicleStatus>(),
 	// create_stream_list_item<MavlinkStreamScaledPressure<1> >(),
 	// create_stream_list_item<MavlinkStreamScaledPressure<2> >(),
 	create_stream_list_item<MavlinkStreamAttitude>(),
