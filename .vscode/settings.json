@@ -181,5 +181,8 @@
         },
         "python.autoComplete.extraPaths": [
                 "/home/madman/develop/origin/mavlink"
+        ],
+        "python.analysis.extraPaths": [
+                "/home/madman/develop/origin/mavlink"
         ]
 }
