@@ -408,13 +408,17 @@ protected:
         struct vehicle_status_flags_s _vehicle_status_flags;
 
         if (_vehicle_status_flags_sub.update(&_vehicle_status_flags)) {
-            mavlink_vehicle_status_t _msg_vehicle_status;
+            mavlink_vehicle_status_t _msg_vehicle_status = {0};
 
             //_msg_vehicle_status.timestamp = _vehicle_status_flags.timestamp;
-            _msg_vehicle_status.condition |= _vehicle_status_flags.condition_local_position_valid << MAV_VEHICLE_CONDITION_GLOBAL_POSITION;
-	    _msg_vehicle_status.condition |= _vehicle_status_flags.condition_local_position_valid << MAV_VEHICLE_CONDITION_LOCAL_POSITION;
-	    _msg_vehicle_status.condition |= _vehicle_status_flags.condition_local_velocity_valid << MAV_VEHICLE_CONDITION_LOCAL_VELOCITY;
-	    _msg_vehicle_status.condition |= _vehicle_status_flags.condition_local_altitude_valid << MAV_VEHICLE_CONDITION_LOCAL_ALTITUDE;
+	    if(_vehicle_status_flags.condition_global_position_valid)
+		_msg_vehicle_status.condition |= MAV_VEHICLE_CONDITION_GLOBAL_POSITION;
+	    if(_vehicle_status_flags.condition_local_position_valid)
+	    	_msg_vehicle_status.condition |= MAV_VEHICLE_CONDITION_LOCAL_POSITION;
+	    if(_vehicle_status_flags.condition_local_velocity_valid)
+	    	_msg_vehicle_status.condition |= MAV_VEHICLE_CONDITION_LOCAL_VELOCITY;
+	    if(_vehicle_status_flags.condition_local_altitude_valid)
+	    	_msg_vehicle_status.condition |= MAV_VEHICLE_CONDITION_LOCAL_ALTITUDE;
 
             mavlink_msg_vehicle_status_send_struct(_mavlink->get_channel(), &_msg_vehicle_status);
 
